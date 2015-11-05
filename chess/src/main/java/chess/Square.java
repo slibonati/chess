@@ -2,28 +2,28 @@ package chess;
 
 public class Square {
 
-	private int rank;
-	private char file;
+	private Integer rank;
+	private String file;
 
-	public Square(char file, int rank) {
+	public Square(String file, Integer rank) {
 		super();
 		this.file = file;
 		this.rank = rank;
 	}
 
-	public int getRank() {
+	public Integer getRank() {
 		return rank;
 	}
 
-	public void setRank(int rank) {
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
 
-	public char getFile() {
+	public String getFile() {
 		return file;
 	}
 
-	public void setFile(char file) {
+	public void setFile(String file) {
 		this.file = file;
 	}
 
