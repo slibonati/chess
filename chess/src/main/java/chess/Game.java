@@ -10,6 +10,7 @@ import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
 import chess.pieces.Pawn;
+import chess.pieces.Piece;
 import chess.pieces.Queen;
 import chess.pieces.Rook;
 
@@ -20,6 +21,9 @@ public class Game {
 	
 	private Lexer lexer;
 	private Parser parser;
+	
+	private Player player1;
+	private Player player2;
 	
 	private Board board;
 	private Stack<Move> moves;
@@ -43,10 +47,7 @@ public class Game {
 		System.out.print(prompt);
 		String input = scanner.nextLine();
 
-		// interpret algebra
-		// you know the player, the piece, from and to
-		// create a move
-		// determine legality
+		Move move = parser.parse(lexer.lex(input), Color.WHITE);
 
 		while (!input.equals("quit")) {
 			System.out.println(input);

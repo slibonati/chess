@@ -3,6 +3,8 @@ package chess;
 import java.util.HashMap;
 import java.util.Map;
 
+import chess.pieces.Piece;
+
 public class Board {
 
 	private Piece[][] board;

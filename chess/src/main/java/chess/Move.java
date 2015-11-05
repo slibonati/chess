@@ -65,4 +65,50 @@ public class Move {
 		this.promote = promote;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((piece == null) ? 0 : piece.hashCode());
+		result = prime * result + ((promote == null) ? 0 : promote.hashCode());
+		result = prime * result + ((to == null) ? 0 : to.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Move other = (Move) obj;
+		if (color != other.color)
+			return false;
+		if (piece == null) {
+			if (other.piece != null)
+				return false;
+		} else if (!piece.equals(other.piece))
+			return false;
+		if (promote == null) {
+			if (other.promote != null)
+				return false;
+		} else if (!promote.equals(other.promote))
+			return false;
+		if (to == null) {
+			if (other.to != null)
+				return false;
+		} else if (!to.equals(other.to))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Move [color=" + color + ", piece=" + piece + ", promote=" + promote + ", to=" + to + "]";
+	}
+	
+	
 }
