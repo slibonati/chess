@@ -1,9 +1,11 @@
-package chess;
+package chess.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import chess.pieces.Piece;
+import chess.Color;
+import chess.Square;
+import chess.game.pieces.Piece;
 
 public class Board {
 

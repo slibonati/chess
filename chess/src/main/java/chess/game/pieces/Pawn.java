@@ -1,4 +1,4 @@
-package chess.pieces;
+package chess.game.pieces;
 
 import chess.Color;
 import chess.Square;

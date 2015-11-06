@@ -1,7 +1,7 @@
 package chess.game.rule;
 
-import chess.Board;
 import chess.Move;
+import chess.game.Board;
 
 public interface Rule {
 

@@ -1,5 +1,7 @@
 package chess;
 
+import chess.game.Board;
+
 public class Move {
 
 	private Color color;
@@ -31,12 +33,6 @@ public class Move {
 		this.piece = piece;
 		this.promote = promote;
 		this.to = to;
-	}
-
-	public boolean isLegal(Board board) {
-		
-		return true;
-		
 	}
 
 	public Color getColor() {

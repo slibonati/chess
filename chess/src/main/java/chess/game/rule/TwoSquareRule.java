@@ -1,10 +1,10 @@
 package chess.game.rule;
 
-import chess.Board;
 import chess.Color;
 import chess.Move;
 import chess.Square;
-import chess.pieces.Piece;
+import chess.game.Board;
+import chess.game.pieces.Piece;
 
 public class TwoSquareRule implements Rule {
 

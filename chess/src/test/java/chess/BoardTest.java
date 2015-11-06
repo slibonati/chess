@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import chess.game.Board;
+
 public class BoardTest {
 	
 	private Board board = new Board();

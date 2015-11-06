@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-import chess.Board;
 import chess.Color;
 import chess.Move;
 import chess.Square;
@@ -12,13 +11,13 @@ import chess.algebra.Lexer;
 import chess.algebra.Parser;
 import chess.algebra.UnrecognizableNotationException;
 import chess.algebra.UnrecognizedTokenException;
-import chess.pieces.Bishop;
-import chess.pieces.King;
-import chess.pieces.Knight;
-import chess.pieces.Pawn;
-import chess.pieces.Piece;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import chess.game.pieces.Bishop;
+import chess.game.pieces.King;
+import chess.game.pieces.Knight;
+import chess.game.pieces.Pawn;
+import chess.game.pieces.Piece;
+import chess.game.pieces.Queen;
+import chess.game.pieces.Rook;
 
 public class Game {
 
@@ -58,6 +57,7 @@ public class Game {
 		try {
 			Move move = parser.parse(lexer.lex(input), Color.WHITE);
 			
+		
 			// is move legal ? 
 			// need the board, the move
 			// if illegal, report, else push to stack and move, prompt
@@ -134,6 +134,11 @@ public class Game {
 		square = new Square("e", 8);
 		board.put(new King(square, Color.BLACK), square);
 	}
+	/*
+	private List<Piece> getCandidatePiece(Board board, Move move) {
+		
+	}
+	*/
 
 	public Board getBoard() {
 		return board;

@@ -1,6 +1,5 @@
 package chess.game;
 
-import chess.Board;
 import chess.Color;
 import chess.Move;
 
@@ -17,11 +16,7 @@ public class Player {
 	}
 
 	public void move(Move move) throws IllegalMoveException {
-		if (move.isLegal(board)) {
-			
-		} else {
-			throw new IllegalMoveException();
-		}
+	
 	}
 	
 	public Color getColor() {
