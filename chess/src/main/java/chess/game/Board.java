@@ -1,6 +1,6 @@
 package chess.game;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import chess.Color;
@@ -11,7 +11,7 @@ public class Board {
 
 	private Piece[][] board;
 
-	public static Map<String, Integer> fileToIndex = new HashMap<String, Integer>();
+	public static Map<String, Integer> fileToIndex = new LinkedHashMap<String, Integer>();
 
 	public Board() {
 		super();
@@ -75,5 +75,12 @@ public class Board {
 		} else {
 			return Color.BLACK;
 		}
+	}
+
+	String getPreviousFile(String file) {
+		return null;
+	}
+	String getNextFile(String file) {
+		return null;
 	}
 }
