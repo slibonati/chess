@@ -1,5 +1,7 @@
 package chess.game.pieces;
 
+import java.util.List;
+
 import chess.Color;
 import chess.Square;
 
@@ -17,4 +19,13 @@ public class King extends Piece {
 	public String toString() {
 		return "K[" + color + "]";
 	}
+
+	@Override
+	public List<Square> getReachableSquares() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 }

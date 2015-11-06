@@ -1,5 +1,7 @@
 package chess.game.pieces;
 
+import java.util.List;
+
 import chess.Color;
 import chess.Square;
 import chess.game.rule.BackwardMovementRule;
@@ -22,6 +24,12 @@ public class Pawn extends Piece {
 	@Override
 	public String toString() {
 		return "P[" + color + "]";
+	}
+
+	@Override
+	public List<Square> getReachableSquares() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
