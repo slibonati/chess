@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import chess.Color;
+import chess.Square;
 
 public class Knight extends Piece {
 
@@ -8,9 +9,13 @@ public class Knight extends Piece {
 		super(color);
 	}
 	
+	public Knight(Square square, Color color) {
+		super(square, color);
+	}
+	
 	@Override
 	public String toString() {
-		return "N [" + color + "]";
+		return "N[" + color + "]";
 	}
 
 }

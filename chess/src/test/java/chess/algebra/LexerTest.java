@@ -13,7 +13,7 @@ public class LexerTest {
 	private List<Token> result = new ArrayList<Token>();
 
 	@Test
-	public void testLexGameofTheCentury() {
+	public void testLexGameofTheCentury() throws Exception {
 
 		// 1. Nf3 Nf6
 		result.add(new Token(Type.PIECE, "N"));
@@ -64,4 +64,17 @@ public class LexerTest {
 		assertEquals(result, lexer.lex("0-0"));
 
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIllegalArgumentException() throws Exception {
+
+		lexer.lex("");
+	}
+	
+	@Test(expected = UnrecognizedTokenException.class)
+	public void testUnrecognizedTokenException() throws Exception {
+
+		lexer.lex("^");
+	}
+
 }

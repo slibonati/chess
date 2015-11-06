@@ -9,19 +9,19 @@ public class Board {
 
 	private Piece[][] board;
 
-	public static Map<String, Integer> algebratoArrayFile = new HashMap<String, Integer>();
+	public static Map<String, Integer> fileToIndex = new HashMap<String, Integer>();
 
 	public Board() {
 		super();
 
-		algebratoArrayFile.put("a", 0);
-		algebratoArrayFile.put("b", 1);
-		algebratoArrayFile.put("c", 2);
-		algebratoArrayFile.put("d", 3);
-		algebratoArrayFile.put("e", 4);
-		algebratoArrayFile.put("f", 5);
-		algebratoArrayFile.put("g", 6);
-		algebratoArrayFile.put("h", 7);
+		fileToIndex.put("a", 0);
+		fileToIndex.put("b", 1);
+		fileToIndex.put("c", 2);
+		fileToIndex.put("d", 3);
+		fileToIndex.put("e", 4);
+		fileToIndex.put("f", 5);
+		fileToIndex.put("g", 6);
+		fileToIndex.put("h", 7);
 
 		board = new Piece[8][8];
 
@@ -29,22 +29,39 @@ public class Board {
 
 	public void put(Piece piece, Square square) {
 
-		board[algebratoArrayFile.get(square.getFile())][square.getRank() - 1] = piece;
+		board[fileToIndex.get(square.getFile())][square.getRank() - 1] = piece;
 	};
 
 	public void show() {
 
-		for (int y = board.length - 1; y >= 0; y--) {
+		for (int file = board.length - 1; file >= 0; file--) {
 
-			for (int x = 0; x <= board.length - 1; x++) {
-				if (board[x][y] == null) {
-					System.out.print("empty, ");
+			for (int rank = 0; rank <= board.length - 1; rank++) {
+				System.out.print(" | ");
+				if (board[rank][file] == null) { // empty
+					System.out.print("    ");
+					if (rank == board.length - 1) {
+						System.out.print(" | ");
+					}
+
 				} else {
-					System.out.print(board[x][y] + ", ");
-				}
+					System.out.print(board[rank][file]);
 
+					if (rank == board.length - 1) {
+						System.out.print(" | ");
+					}
+				}
 			}
-			System.out.println();
+			System.out.println("");
+			// System.out.println("-----------------------------------------------------------");
+		}
+	}
+
+	public Color getColor(Square square) {
+		if ((square.getRank() % 2) == (fileToIndex.get(square.getFile()) % 2)) {
+			return Color.WHITE;
+		} else {
+			return Color.BLACK;
 		}
 	}
 }

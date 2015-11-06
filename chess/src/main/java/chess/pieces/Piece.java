@@ -12,6 +12,14 @@ public class Piece {
 		super();
 		this.color = color;
 	}
+	
+	
+	public Piece(Square square, Color color) {
+		super();
+		this.square = square;
+		this.color = color;
+	}
+
 
 	public Square getSquare() {
 		return square;

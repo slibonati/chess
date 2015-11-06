@@ -17,10 +17,13 @@ public class Lexer {
 		pieces.add("R");
 	}
 
-	public List<Token> lex(String input) {
+	public List<Token> lex(String input) throws UnrecognizedTokenException {
+		if (input.isEmpty()) {
+			throw new IllegalArgumentException("input is empty");
+		}
 
 		List<Token> result = new ArrayList<Token>();
-
+		int size = result.size();
 		for (char c : input.toCharArray()) {
 
 			if (isPiece(c)) {
@@ -50,8 +53,11 @@ public class Lexer {
 			if (isDash(c)) {
 				result.add(new Token(Type.DASH, String.valueOf(c)));
 			}
+			if (result.size() == size) {
+				throw new UnrecognizedTokenException(String.valueOf(c) + " unrecognized from " + "'" + input +"'");
+			}
 		}
-
+		
 		return result;
 	}
 
