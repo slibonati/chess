@@ -6,18 +6,18 @@ public class Move {
 	private String piece;
 	private String promote;
 	private Square to;
+	boolean capture;
 
 	public Move() {
 		super();
 	}
-	
+
 	public Move(String piece, Square to) {
 		super();
 		this.piece = piece;
 		this.to = to;
 	}
-	
-	
+
 	public Move(Color color, String piece, Square to) {
 		super();
 		this.color = color;
@@ -31,6 +31,12 @@ public class Move {
 		this.piece = piece;
 		this.promote = promote;
 		this.to = to;
+	}
+
+	public boolean isLegal(Board board) {
+		
+		return true;
+		
 	}
 
 	public Color getColor() {
@@ -109,6 +115,5 @@ public class Move {
 	public String toString() {
 		return "Move [color=" + color + ", piece=" + piece + ", promote=" + promote + ", to=" + to + "]";
 	}
-	
-	
+
 }

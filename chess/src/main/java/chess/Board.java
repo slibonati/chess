@@ -32,6 +32,16 @@ public class Board {
 		board[fileToIndex.get(square.getFile())][square.getRank() - 1] = piece;
 	};
 
+	public boolean isOccupied(Square square) {
+
+		return board[fileToIndex.get(square.getFile())][square.getRank() - 1] != null;
+	};
+
+	public boolean isEmpty(Square square) {
+
+		return board[fileToIndex.get(square.getFile())][square.getRank() - 1] == null;
+	};
+
 	public void show() {
 
 		for (int file = board.length - 1; file >= 0; file--) {

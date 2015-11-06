@@ -41,10 +41,10 @@ public class Game {
 
 		lexer = new Lexer();
 		parser = new Parser();
-
+		player1 = new Player(board);
+		player2 = new Player(board);
 		board = new Board();
 		setup(board);
-
 	}
 
 	public void play() {
@@ -57,6 +57,12 @@ public class Game {
 
 		try {
 			Move move = parser.parse(lexer.lex(input), Color.WHITE);
+			
+			// is move legal ? 
+			// need the board, the move
+			// if illegal, report, else push to stack and move, prompt
+			
+			
 		} catch (UnrecognizedTokenException e) {
 			System.out.println(e.getMessage());
 		} catch (UnrecognizableNotationException e) {

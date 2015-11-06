@@ -1,25 +1,33 @@
 package chess.pieces;
 
+import java.util.List;
+
 import chess.Color;
 import chess.Square;
+import chess.game.rule.Rule;
 
 public class Piece {
-	
+
+	protected List<Rule> rules;
+
 	protected Square square;
 	protected Color color;
 	
+	
+	public Piece() {
+		super();
+	}
+
 	public Piece(Color color) {
 		super();
 		this.color = color;
 	}
-	
-	
+
 	public Piece(Square square, Color color) {
 		super();
 		this.square = square;
 		this.color = color;
 	}
-
 
 	public Square getSquare() {
 		return square;
@@ -37,6 +45,4 @@ public class Piece {
 		this.color = color;
 	}
 
-	
-	
 }
