@@ -1,0 +1,18 @@
+
+
+
+with algebraic notation , we only have the target square not the current square
+
+piece knows it's current square
+
+piece can compute reachable squares
+
+at times will need to understand if path is clear on rank or file 
+
+for a given move can validate target versus reachable; if target is not in reachable, illegal move
+
+need to consider boundaries of board when computing reachable 
+
+piece needs reference to board ? for computing reachable; should piece do itself ? or game ? 
+
+
