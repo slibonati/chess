@@ -1,11 +1,22 @@
 
+1. with algebraic notation, we only have the target square not the current square (need this cause square needs to be cleared)
+
+	how to solve ? 
+	
+	Color/Player is needed
+	
+	it would seem you have to determine in reverse where the move could have come from. if undeterministic, i.e., ambiguity exists, error accordingly
+	 
+	in order to do this, the piece and the coordinate need to be identified. perhaps then , you can match up reachable squares to move. 
+	this raises an interesting consideration, take for example , Nf3 , we have the piece, Knight, but which knight? this is ambiguity mentioned above ; there are rule for disambiguating
 
 
-with algebraic notation , we only have the target square not the current square
 
-piece knows it's current square
 
-piece can compute reachable squares
+
+piece can compute reachable squares ; should computation disregard occupied squares (if so , board is needed as context)? consider takes ; should it be all reachable?
+
+ 
 
 at times will need to understand if path is clear on rank or file 
 
@@ -15,4 +26,10 @@ need to consider boundaries of board when computing reachable
 
 piece needs reference to board ? for computing reachable; should piece do itself ? or game ? 
 
+move is different than put; move has to clear the previous square; put is not doing that
 
+play a game with pgn as input
+
+
+
+piece knows it's current square ; we have no mapping between algebraic notation and piece on board

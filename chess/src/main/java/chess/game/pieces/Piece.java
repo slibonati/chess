@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.Color;
-import chess.Square;
+import chess.game.Square;
 import chess.game.rule.Rule;
 
 public abstract class Piece {
 
 	protected List<Square> reachableSquares = new ArrayList<Square>();
-	protected List<Rule> rules;
+	protected List<Rule> rules = new ArrayList<Rule>();
 
 	protected Square square;
 	protected Color color;
@@ -45,7 +45,21 @@ public abstract class Piece {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	
+	public List<Rule> getRules() {
+		return rules;
+	}
+
+	public void setRules(List<Rule> rules) {
+		this.rules = rules;
+	}
 
 	public abstract List<Square> getReachableSquares();
+
+	
+	public abstract String toDetailedString();
+	
+	
 
 }

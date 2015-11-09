@@ -1,7 +1,6 @@
 package chess.game;
 
 import chess.Color;
-import chess.Move;
 
 public class Player {
 	
@@ -14,6 +13,23 @@ public class Player {
 		super();
 		this.board = board;
 	}
+
+	public Player(Color color, Board board) {
+		super();
+		this.color = color;
+		this.board = board;
+	}
+
+
+
+	public Player(Color color, String name, Board board) {
+		super();
+		this.color = color;
+		this.name = name;
+		this.board = board;
+	}
+
+
 
 	public void move(Move move) throws IllegalMoveException {
 	

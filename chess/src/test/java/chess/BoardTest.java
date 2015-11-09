@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import chess.game.Board;
+import chess.game.Square;
 
 public class BoardTest {
 	

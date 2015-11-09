@@ -2,8 +2,10 @@ package chess.game;
 
 public class IllegalMoveException extends Exception {
 
+	private static final long serialVersionUID = 2198266838631688845L;
+
 	public IllegalMoveException() {
-		// TODO Auto-generated constructor stub
+		super("Illegal move");
 	}
 
 	public IllegalMoveException(String message) {

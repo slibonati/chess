@@ -1,12 +1,13 @@
 package chess.game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
 import chess.Color;
-import chess.Move;
-import chess.Square;
 import chess.algebra.Lexer;
 import chess.algebra.Parser;
 import chess.algebra.UnrecognizableNotationException;
@@ -18,30 +19,39 @@ import chess.game.pieces.Pawn;
 import chess.game.pieces.Piece;
 import chess.game.pieces.Queen;
 import chess.game.pieces.Rook;
+import chess.game.rule.Rule;
+import chess.game.rule.WrongTurnRule;
 
 public class Game {
 
-	private final static String WHITE_PROMPT = "White to play ... ";
-	private final static String BLACK_PROMPT = "Black to play ... ";
+	private Map<Color, String> colorToPrompt = new HashMap<Color, String>();
 
 	private Lexer lexer;
 	private Parser parser;
 
 	private Player player1;
 	private Player player2;
+	private Player turn;
 
 	private Board board;
-	private Stack<Move> moves;
+	private Stack<Move> moves = new Stack<Move>();
 
-	private List<Piece> pieces;
+	protected List<Rule> rules = new ArrayList<Rule>();
 
 	public Game() {
 		super();
 
 		lexer = new Lexer();
 		parser = new Parser();
-		player1 = new Player(board);
-		player2 = new Player(board);
+		player1 = new Player(Color.WHITE, board);
+		player2 = new Player(Color.BLACK, board);
+		turn = player1;
+
+		colorToPrompt.put(Color.WHITE, "White to play ... ");
+		colorToPrompt.put(Color.BLACK, "Black to play ... ");
+
+		rules.add(new WrongTurnRule());
+
 		board = new Board();
 		setup(board);
 	}
@@ -50,44 +60,57 @@ public class Game {
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
-		String prompt = WHITE_PROMPT;
+		String prompt = colorToPrompt.get(turn.getColor());
 		System.out.print(prompt);
 		String input = scanner.nextLine();
+		turn(input);
 
+		while (!input.equals("quit")) {
+
+			prompt = colorToPrompt.get(turn.getColor());
+
+			System.out.print(prompt);
+			input = scanner.nextLine();
+			if (input.equals("quit")) {
+				continue;
+			}
+			turn(input);
+		}
+
+	}
+
+	private void turn(final String input) {
 		try {
-			Move move = parser.parse(lexer.lex(input), Color.WHITE);
-			
-		
-			// is move legal ? 
-			// need the board, the move
-			// if illegal, report, else push to stack and move, prompt
-			
-			
+			Move move = parser.parse(lexer.lex(input), turn.getColor());
+
+			List<Square> candidates = getFromSquareCandidates(move);
+			Piece piece = getPiece(candidates, board);
+
+			if (piece == null) {
+				throw new IllegalMoveException();
+			}
+
+			List<Rule> rules = new ArrayList<Rule>();
+			rules.addAll(this.rules);
+			rules.addAll(piece.getRules());
+
+			for (Rule rule : rules) {
+				if (!rule.isCompliant(new MoveContext(board, turn, move))) {
+					throw new IllegalMoveException(rule.getMessage());
+				}
+			}
+
+			move(piece, move, board);
+			board.show();
+
+			turn = turn.equals(player1) ? player2 : player1;
+
 		} catch (UnrecognizedTokenException e) {
 			System.out.println(e.getMessage());
 		} catch (UnrecognizableNotationException e) {
 			System.out.println(e.getMessage());
-		}
-
-		while (!input.equals("quit")) {
-			System.out.println(input);
-
-			if (prompt.equals(WHITE_PROMPT)) {
-				prompt = BLACK_PROMPT;
-			} else {
-				prompt = WHITE_PROMPT;
-			}
-
-			System.out.print(prompt);
-			input = scanner.nextLine();
-
-			try {
-				Move move = parser.parse(lexer.lex(input), Color.WHITE);
-			} catch (UnrecognizedTokenException e) {
-				System.out.println(e.getMessage());
-			} catch (UnrecognizableNotationException e) {
-				System.out.println(e.getMessage());
-			}
+		} catch (IllegalMoveException e) {
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -134,11 +157,59 @@ public class Game {
 		square = new Square("e", 8);
 		board.put(new King(square, Color.BLACK), square);
 	}
-	/*
-	private List<Piece> getCandidatePiece(Board board, Move move) {
-		
+
+	private List<Square> getFromSquareCandidates(Move move) {
+
+		List<Square> from = new ArrayList<Square>();
+
+		if (move.getPiece().equals("")) {
+			if (move.isCapture()) {
+
+			} else {
+				if (move.getColor().equals(Color.WHITE)) {
+
+					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() - 1));
+					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() - 2));
+				}
+				if (move.getColor().equals(Color.BLACK)) {
+					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() + 1));
+					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() + 2));
+				}
+			}
+		}
+
+		if (move.getPiece().equals("N")) {
+
+		}
+
+		return from;
 	}
-	*/
+
+	private Piece getPiece(List<Square> candidates, Board board) {
+
+		Piece piece = null;
+		for (Square square : candidates) {
+			piece = board.get(square);
+			if (piece == null) {
+				continue;
+			}
+		}
+		return piece;
+	}
+
+	private void move(Piece piece, Move move, Board board) {
+
+		board.clear(piece.getSquare());
+		board.put(piece, move.getTo());
+		piece.setSquare(move.getTo());
+		moves.push(move);
+
+		if (piece instanceof Pawn) {
+			if (Math.abs(move.getTo().getRank() - piece.getSquare().getRank()) == 2) {
+				((Pawn) piece).setMovedTwoSquares(true);
+			}
+		}
+	}
 
 	public Board getBoard() {
 		return board;

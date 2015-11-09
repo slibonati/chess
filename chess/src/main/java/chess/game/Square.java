@@ -1,4 +1,4 @@
-package chess;
+package chess.game;
 
 public class Square {
 
@@ -60,8 +60,7 @@ public class Square {
 
 	@Override
 	public String toString() {
-		return "Square [rank=" + rank + ", file=" + file + "]";
+		return "Square [file=" + file + ", rank=" + rank + "]";
 	}
-	
-	
+
 }

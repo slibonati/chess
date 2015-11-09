@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import chess.Color;
-import chess.Square;
 import chess.game.pieces.Piece;
 
 public class Board {
@@ -32,6 +31,16 @@ public class Board {
 	public void put(Piece piece, Square square) {
 
 		board[fileToIndex.get(square.getFile())][square.getRank() - 1] = piece;
+	};
+	
+	public Piece get(Square square) {
+
+		return board[fileToIndex.get(square.getFile())][square.getRank() - 1];
+	};
+	
+	public void clear(Square square) {
+
+		board[fileToIndex.get(square.getFile())][square.getRank() - 1] = null;
 	};
 
 	public boolean isOccupied(Square square) {

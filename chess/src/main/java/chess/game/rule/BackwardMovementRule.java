@@ -1,8 +1,7 @@
 package chess.game.rule;
 
 import chess.Color;
-import chess.Move;
-import chess.game.Board;
+import chess.game.MoveContext;
 import chess.game.pieces.Piece;
 
 public class BackwardMovementRule implements Rule {
@@ -15,13 +14,13 @@ public class BackwardMovementRule implements Rule {
 	}
 
 	@Override
-	public boolean isCompliant(Move move, Board board) {
+	public boolean isCompliant(MoveContext moveContext) {
 		if (piece.getColor() == Color.WHITE) {
-			return (move.getTo().getRank() > piece.getSquare().getRank());
+			return (moveContext.getMove().getTo().getRank() > piece.getSquare().getRank());
 		} else {
-			return (move.getTo().getRank() < piece.getSquare().getRank());
+			return (moveContext.getMove().getTo().getRank() < piece.getSquare().getRank());
 		}
-		
+
 	}
 
 	public Piece getPiece() {
@@ -32,4 +31,13 @@ public class BackwardMovementRule implements Rule {
 		this.piece = piece;
 	}
 
+	@Override
+	public String getMessage() {
+		return "Pawns cannot move backwards.";
+	}
+
+	@Override
+	public String toString() {
+		return "BackwardMovementRule";
+	}
 }

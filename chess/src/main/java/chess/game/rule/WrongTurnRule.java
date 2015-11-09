@@ -1,18 +1,20 @@
 package chess.game.rule;
 
-import chess.Move;
-import chess.game.Board;
+import chess.game.MoveContext;
 
 public class WrongTurnRule implements Rule {
 
 	public WrongTurnRule() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public boolean isCompliant(Move move, Board board) {
-	
-		return false;
+	public boolean isCompliant(MoveContext moveContext) {
+		return moveContext.getMove().getColor() == moveContext.getPlayer().getColor();
+	}
+
+	@Override
+	public String getMessage() {
+		return "wrong turn";
 	}
 
 }

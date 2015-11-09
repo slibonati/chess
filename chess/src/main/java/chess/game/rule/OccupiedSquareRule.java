@@ -1,7 +1,6 @@
 package chess.game.rule;
 
-import chess.Move;
-import chess.game.Board;
+import chess.game.MoveContext;
 
 public class OccupiedSquareRule implements Rule {
 
@@ -10,8 +9,13 @@ public class OccupiedSquareRule implements Rule {
 	}
 
 	@Override
-	public boolean isCompliant(Move move, Board board) {
-		return board.isEmpty(move.getTo());
+	public boolean isCompliant(MoveContext moveContext) {
+		return moveContext.getBoard().isEmpty(moveContext.getMove().getTo());
+	}
+
+	@Override
+	public String getMessage() {
+		return "square is occupied.";
 	}
 
 }

@@ -1,10 +1,11 @@
 package chess.game.rule;
 
-import chess.Move;
-import chess.game.Board;
+import chess.game.MoveContext;
 
 public interface Rule {
 
-	public boolean isCompliant(Move move, Board board);
+	public boolean isCompliant(MoveContext moveContext);
+
+	public String getMessage();
 
 }

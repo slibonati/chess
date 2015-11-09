@@ -1,6 +1,6 @@
-package chess;
+package chess.game;
 
-import chess.game.Board;
+import chess.Color;
 
 public class Move {
 
@@ -65,6 +65,14 @@ public class Move {
 
 	public void setPromote(String promote) {
 		this.promote = promote;
+	}
+
+	public boolean isCapture() {
+		return capture;
+	}
+
+	public void setCapture(boolean capture) {
+		this.capture = capture;
 	}
 
 	@Override
