@@ -10,14 +10,19 @@ public class KnightMovementRule implements Rule {
 
 	@Override
 	public boolean isCompliant(MoveContext moveContext) {
-		// TODO Auto-generated method stub
-		return false;
+
+		if (moveContext.getBoard().isOccupied(moveContext.getMove().getTo())) {
+			return false;
+		}
+
+		return true;
+
 	}
 
 	@Override
 	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return "knight moves in an L pattern";
 	}
 
 }
