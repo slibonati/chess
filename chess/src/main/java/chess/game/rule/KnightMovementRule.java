@@ -26,7 +26,7 @@ public class KnightMovementRule implements Rule {
 			return false;
 		}
 
-		List<Square> allowable = getAllowableSquares(to, moveContext.getBoard());
+		List<Square> allowable = getAllowableSquares(this.piece.getSquare(), moveContext.getBoard());
 		if (allowable.contains(to)) {
 			return true;
 		}
@@ -35,6 +35,7 @@ public class KnightMovementRule implements Rule {
 
 	}
 
+	// TODO refactor to loop
 	private List<Square> getAllowableSquares(Square square, Board board) {
 
 		List<Square> allowable = new ArrayList<Square>();
@@ -46,53 +47,95 @@ public class KnightMovementRule implements Rule {
 		Square to;
 
 		// example d4
+
 		try {
-
 			r = board.incrementRankBy(square.getRank(), 2);
-
 			f = board.incrementFileBy(square.getFile(), 1);
+
 			to = new Square(f, r); // e6
 
 			allowable.add(to);
 
-			f = board.decrementFileBy(square.getFile(), 1);
-			to = new Square(f, r); // c6
+		} catch (BoundaryException e) {
 
-			allowable.add(to);
+		}
 
-			r = board.incrementRankBy(square.getRank(), 1);
-
-			f = board.decrementFileBy(square.getFile(), 2);
-			to = new Square(f, r); // b5
-
-			allowable.add(to);
+		try {
 
 			r = board.incrementRankBy(square.getRank(), 1);
-
 			f = board.incrementFileBy(square.getFile(), 2);
+
 			to = new Square(f, r); // f5
 
 			allowable.add(to);
 
-			r = board.decrementRankBy(square.getRank(), 1);
+		} catch (BoundaryException e) {
 
+		}
+
+		try {
+			r = board.incrementRankBy(square.getRank(), 2);
+			f = board.decrementFileBy(square.getFile(), 1);
+
+			to = new Square(f, r); // c6
+
+			allowable.add(to);
+		} catch (BoundaryException e) {
+
+		}
+
+		try {
+			r = board.incrementRankBy(square.getRank(), 1);
+			f = board.decrementFileBy(square.getFile(), 2);
+
+			to = new Square(f, r); // b5
+
+			allowable.add(to);
+		} catch (BoundaryException e) {
+
+		}
+
+		try {
+
+			r = board.decrementRankBy(square.getRank(), 1);
 			f = board.decrementFileBy(square.getFile(), 2);
 			to = new Square(f, r); // b3
 
 			allowable.add(to);
+		} catch (BoundaryException e) {
 
+		}
+
+		try {
+			r = board.decrementRankBy(square.getRank(), 1);
 			f = board.incrementFileBy(square.getFile(), 2);
+
 			to = new Square(f, r); // f3
 
 			allowable.add(to);
 
-			r = board.decrementRankBy(square.getRank(), 2);
+		} catch (BoundaryException e) {
 
+		}
+
+		try {
+			r = board.decrementRankBy(square.getRank(), 2);
+			f = board.incrementFileBy(square.getFile(), 1);
+
+			to = new Square(f, r); // e2
+
+			allowable.add(to);
+		} catch (BoundaryException e) {
+
+		}
+
+		try {
+			r = board.decrementRankBy(square.getRank(), 2);
 			f = board.decrementFileBy(square.getFile(), 1);
+
 			to = new Square(f, r); // c2
 
-			f = board.incrementFileBy(square.getFile(), 1);
-			to = new Square(f, r); // e2
+			allowable.add(to);
 
 		} catch (BoundaryException e) {
 
