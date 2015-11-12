@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import chess.Color;
 import chess.game.Board;
+import chess.game.Color;
 import chess.game.Move;
 import chess.game.MoveContext;
 import chess.game.Player;

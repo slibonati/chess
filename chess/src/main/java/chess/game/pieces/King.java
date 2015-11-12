@@ -2,7 +2,8 @@ package chess.game.pieces;
 
 import java.util.List;
 
-import chess.Color;
+import chess.game.Color;
+import chess.game.MoveContext;
 import chess.game.Square;
 
 public class King extends Piece {
@@ -21,13 +22,18 @@ public class King extends Piece {
 	}
 
 	@Override
-	public List<Square> getReachableSquares() {
+	public String toDetailedString() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String toDetailedString() {
+	public String toAlgebraicRepresentation() {
+		return "K";
+	}
+
+	@Override
+	public List<Square> reachable(MoveContext moveContext) {
 		// TODO Auto-generated method stub
 		return null;
 	}

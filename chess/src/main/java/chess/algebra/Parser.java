@@ -2,13 +2,13 @@ package chess.algebra;
 
 import java.util.List;
 
-import chess.Color;
 import chess.algebra.matcher.LongCastleMatcher;
 import chess.algebra.matcher.Matcher;
 import chess.algebra.matcher.PawnMoveMatcher;
 import chess.algebra.matcher.PieceMoveMatcher;
 import chess.algebra.matcher.PromoteMatcher;
 import chess.algebra.matcher.ShortCastleMatcher;
+import chess.game.Color;
 import chess.game.Move;
 
 public class Parser {

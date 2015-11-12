@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import chess.Color;
 import chess.algebra.Token;
 import chess.algebra.Type;
 import chess.algebra.UnrecognizableNotationException;
+import chess.game.Color;
 import chess.game.Move;
 import chess.game.Square;
 

@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import chess.Color;
 import chess.game.pieces.Piece;
 
 public class Board {
@@ -91,6 +90,25 @@ public class Board {
 		} else {
 			return Color.BLACK;
 		}
+	}
+	
+	public List<Piece> find(Color color, String piece) {
+			
+		List<Piece> result = new ArrayList<Piece>();
+
+		for (int file = 0; file < board.length; file++) {
+
+			for (int rank = 0; rank < board.length; rank++) {
+				
+				Piece p = board[file][rank];
+				if (p != null) {
+					if (p.getColor().equals(color) && p.toAlgebraicRepresentation().equals(piece)) {
+						result.add(p);
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	public String incrementFileBy(String file, Integer addend) throws BoundaryException {

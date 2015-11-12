@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import chess.game.Board;
 import chess.game.BoundaryException;
+import chess.game.Color;
 import chess.game.Square;
 
 public class BoardTest {

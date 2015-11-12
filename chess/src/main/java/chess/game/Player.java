@@ -1,7 +1,5 @@
 package chess.game;
 
-import chess.Color;
-
 public class Player {
 
 	private Color color;

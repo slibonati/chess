@@ -1,8 +1,9 @@
 package chess.game.rule;
 
+import java.util.List;
+
 import chess.game.MoveContext;
 import chess.game.Square;
-import chess.game.pieces.Pawn;
 import chess.game.pieces.Piece;
 
 public class PawnMovementRule implements Rule {
@@ -17,14 +18,8 @@ public class PawnMovementRule implements Rule {
 	@Override
 	public boolean isCompliant(MoveContext moveContext) {
 
-		if (Math.abs(moveContext.getMove().getTo().getRank() - piece.getSquare().getRank()) == 2) {
-			if (moveContext.getBoard().isEmpty(moveContext.getMove().getTo())
-					&& moveContext.getBoard().isEmpty(new Square(moveContext.getMove().getTo().getFile(), moveContext.getMove().getTo().getRank() - 1))) {
-				if (!((Pawn) piece).isMovedTwoSquares()) {
-					return true;
-				}
-			}
-		} else if (Math.abs(moveContext.getMove().getTo().getRank() - piece.getSquare().getRank()) == 1) {
+		List<Square> allowable = piece.reachable(moveContext);
+		if (allowable.contains(moveContext.getMove().getTo())) {
 			return true;
 		}
 
@@ -41,8 +36,8 @@ public class PawnMovementRule implements Rule {
 
 	@Override
 	public String getMessage() {
-		
-		return "Pawns move straight forward one square, if that square is vacant. If it has not yet moved, a pawn also has the option of moving two squares straight forward, provided both squares are vacant.";
+
+		return "Pawns move straight forward one current, if that current is vacant. If it has not yet moved, a pawn also has the option of moving two squares straight forward, provided both squares are vacant.";
 	}
 
 }
