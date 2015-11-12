@@ -7,6 +7,7 @@ public class Move {
 	private String promote;
 	private Square to;
 	boolean capture;
+	boolean castle;
 
 	public Move() {
 		super();
@@ -23,6 +24,14 @@ public class Move {
 		this.color = color;
 		this.piece = piece;
 		this.to = to;
+	}
+	
+	public Move(Color color, String piece, Square to, boolean castle) {
+		super();
+		this.color = color;
+		this.piece = piece;
+		this.to = to;
+		this.castle = castle;
 	}
 
 	public Move(Color color, String piece, String promote, Square to) {
@@ -71,6 +80,16 @@ public class Move {
 
 	public void setCapture(boolean capture) {
 		this.capture = capture;
+	}
+	
+	
+
+	public boolean isCastle() {
+		return castle;
+	}
+
+	public void setCastle(boolean castle) {
+		this.castle = castle;
 	}
 
 	@Override

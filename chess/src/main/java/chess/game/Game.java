@@ -108,8 +108,14 @@ public class Game {
 					throw new IllegalMoveException(rule.getMessage());
 				}
 			}
-
-			move(piece, move, board);
+			
+			if (move.isCastle()) {
+				//castle(piece, move, board);
+			} else {
+				move(piece, move, board);
+			}
+			
+			
 			board.show();
 
 			turn = turn.equals(player1) ? player2 : player1;

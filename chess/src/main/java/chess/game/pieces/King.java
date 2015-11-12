@@ -8,6 +8,9 @@ import chess.game.Square;
 
 public class King extends Piece {
 
+	private boolean castled;
+	private boolean moved;
+	
 	public King(Color color) {
 		super(color);
 	}
@@ -37,6 +40,24 @@ public class King extends Piece {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public boolean isCastled() {
+		return castled;
+	}
+
+	public void setCastled(boolean castled) {
+		this.castled = castled;
+	}
+
+	public boolean isMoved() {
+		return moved;
+	}
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+	
+	
 
 
 	

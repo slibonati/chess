@@ -7,7 +7,9 @@ import chess.game.MoveContext;
 import chess.game.Square;
 
 public class Rook extends Piece {
-
+	
+	private boolean moved;
+	
 	public Rook(Color color) {
 		super(color);
 	}
@@ -38,4 +40,11 @@ public class Rook extends Piece {
 		return null;
 	}
 
+	public boolean isMoved() {
+		return moved;
+	}
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
 }
