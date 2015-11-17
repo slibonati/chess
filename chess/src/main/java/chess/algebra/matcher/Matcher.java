@@ -2,10 +2,10 @@ package chess.algebra.matcher;
 
 import java.util.List;
 
-import chess.algebra.Token;
 import chess.algebra.UnrecognizableNotationException;
 import chess.game.Color;
 import chess.game.Move;
+import chess.algebra.Token;
 
 public interface Matcher {
 

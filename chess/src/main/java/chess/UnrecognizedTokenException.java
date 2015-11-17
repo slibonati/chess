@@ -1,4 +1,4 @@
-package chess.algebra;
+package chess;
 
 public class UnrecognizedTokenException extends Exception {
 

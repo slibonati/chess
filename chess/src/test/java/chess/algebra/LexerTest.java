@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import chess.UnrecognizedTokenException;
+import chess.algebra.Token;
+
 public class LexerTest {
 
 	private Lexer lexer = new Lexer();

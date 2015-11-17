@@ -3,6 +3,9 @@ package chess.algebra;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.UnrecognizedTokenException;
+import chess.algebra.Token;
+
 public class Lexer {
 
 	private final List<String> pieces;
@@ -28,30 +31,38 @@ public class Lexer {
 
 			if (isPiece(c)) {
 				result.add(new Token(Type.PIECE, String.valueOf(c)));
+				continue;
 			}
 			if (isRank(c)) {
 				result.add(new Token(Type.RANK, String.valueOf(c)));
+				continue;
 			}
 			if (isFile(c)) {
 				result.add(new Token(Type.FILE, String.valueOf(c)));
+				continue;
 			}
 			if (isTakes(c)) {
 				result.add(new Token(Type.TAKES, String.valueOf(c)));
 			}
 			if (isCheck(c)) {
 				result.add(new Token(Type.CHECK, String.valueOf(c)));
+				continue;
 			}
 			if (isCheckmate(c)) {
 				result.add(new Token(Type.CHECKMATE, String.valueOf(c)));
+				continue;
 			}
 			if (isCastle(c)) {
 				result.add(new Token(Type.CASTLE, String.valueOf(c)));
+				continue;
 			}
 			if (isPromote(c)) {
 				result.add(new Token(Type.PROMOTE, String.valueOf(c)));
+				continue;
 			}
 			if (isDash(c)) {
 				result.add(new Token(Type.DASH, String.valueOf(c)));
+				continue;
 			}
 			if (result.size() == size) {
 				throw new UnrecognizedTokenException(String.valueOf(c) + " unrecognized from " + "'" + input +"'");

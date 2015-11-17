@@ -1,6 +1,6 @@
-package chess.algebra;
+package chess.pgn;
 
-import chess.algebra.Type;
+import chess.pgn.Type;
 
 public class Token {
 	

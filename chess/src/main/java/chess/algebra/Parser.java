@@ -10,6 +10,7 @@ import chess.algebra.matcher.PromoteMatcher;
 import chess.algebra.matcher.ShortCastleMatcher;
 import chess.game.Color;
 import chess.game.Move;
+import chess.algebra.Token;
 
 public class Parser {
 
