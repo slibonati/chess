@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import chess.Color;
+import chess.game.Color;
+import chess.algebra.Token;
 
 public class ParserTest {
 

@@ -2,12 +2,12 @@ package chess.algebra.matcher;
 
 import java.util.List;
 
-import chess.Color;
-import chess.algebra.Token;
 import chess.algebra.Type;
 import chess.algebra.UnrecognizableNotationException;
+import chess.game.Color;
 import chess.game.Move;
 import chess.game.Square;
+import chess.algebra.Token;
 
 public class ShortCastleMatcher implements Matcher {
 
@@ -27,7 +27,7 @@ public class ShortCastleMatcher implements Matcher {
 			} else {
 				square = new Square("g", 1);
 			}
-			return new Move(color, "K", square);
+			return new Move(color, "K", square, true);
 
 		} else {
 			if (next == null) {

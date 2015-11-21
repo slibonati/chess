@@ -15,7 +15,7 @@ public class OccupiedSquareRule implements Rule {
 
 	@Override
 	public String getMessage() {
-		return "square is occupied.";
+		return "current is occupied.";
 	}
 
 }

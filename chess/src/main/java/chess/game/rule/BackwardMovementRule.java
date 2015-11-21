@@ -1,6 +1,6 @@
 package chess.game.rule;
 
-import chess.Color;
+import chess.game.Color;
 import chess.game.MoveContext;
 import chess.game.pieces.Piece;
 
@@ -16,9 +16,9 @@ public class BackwardMovementRule implements Rule {
 	@Override
 	public boolean isCompliant(MoveContext moveContext) {
 		if (piece.getColor() == Color.WHITE) {
-			return (moveContext.getMove().getTo().getRank() > piece.getSquare().getRank());
+			return (moveContext.getMove().getTo().getRank() > piece.getCurrent().getRank());
 		} else {
-			return (moveContext.getMove().getTo().getRank() < piece.getSquare().getRank());
+			return (moveContext.getMove().getTo().getRank() < piece.getCurrent().getRank());
 		}
 
 	}

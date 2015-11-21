@@ -3,16 +3,16 @@ package chess.game.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chess.Color;
+import chess.game.Color;
+import chess.game.MoveContext;
 import chess.game.Square;
 import chess.game.rule.Rule;
 
 public abstract class Piece {
 
-	protected List<Square> reachableSquares = new ArrayList<Square>();
 	protected List<Rule> rules = new ArrayList<Rule>();
 
-	protected Square square;
+	protected Square current;
 	protected Color color;
 
 	public Piece() {
@@ -24,18 +24,18 @@ public abstract class Piece {
 		this.color = color;
 	}
 
-	public Piece(Square square, Color color) {
+	public Piece(Square current, Color color) {
 		super();
-		this.square = square;
+		this.current = current;
 		this.color = color;
 	}
 
-	public Square getSquare() {
-		return square;
+	public Square getCurrent() {
+		return current;
 	}
 
-	public void setSquare(Square square) {
-		this.square = square;
+	public void setCurrent(Square square) {
+		this.current = square;
 	}
 
 	public Color getColor() {
@@ -55,10 +55,16 @@ public abstract class Piece {
 		this.rules = rules;
 	}
 
-	public abstract List<Square> getReachableSquares();
-
+	/**
+	 * Computes reachable destination squares based on current position ignoring occupancy
+	 * @param moveContext
+	 * @return allowable destination squares
+	 */
+	public abstract List<Square> reachable(MoveContext moveContext);
 	
 	public abstract String toDetailedString();
+	
+	public abstract String toAlgebraicRepresentation();
 	
 	
 

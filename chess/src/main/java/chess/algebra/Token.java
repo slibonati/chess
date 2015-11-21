@@ -1,5 +1,7 @@
 package chess.algebra;
 
+import chess.algebra.Type;
+
 public class Token {
 	
 	private Type type;

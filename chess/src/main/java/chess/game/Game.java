@@ -7,11 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
-import chess.Color;
 import chess.algebra.Lexer;
 import chess.algebra.Parser;
-import chess.algebra.UnrecognizableNotationException;
-import chess.algebra.UnrecognizedTokenException;
 import chess.game.pieces.Bishop;
 import chess.game.pieces.King;
 import chess.game.pieces.Knight;
@@ -19,6 +16,7 @@ import chess.game.pieces.Pawn;
 import chess.game.pieces.Piece;
 import chess.game.pieces.Queen;
 import chess.game.pieces.Rook;
+import chess.game.rule.OccupiedSquareRule;
 import chess.game.rule.Rule;
 import chess.game.rule.WrongTurnRule;
 
@@ -51,6 +49,7 @@ public class Game {
 		colorToPrompt.put(Color.BLACK, "Black to play ... ");
 
 		rules.add(new WrongTurnRule());
+		rules.add(new OccupiedSquareRule());
 
 		board = new Board();
 		setup(board);
@@ -83,12 +82,22 @@ public class Game {
 		try {
 			Move move = parser.parse(lexer.lex(input), turn.getColor());
 
-			List<Square> candidates = getFromSquareCandidates(move);
-			Piece piece = getPiece(candidates, board);
+			List<Piece> pieces = board.find(move.getColor(), move.getPiece());
+			List<Piece> candidates = new ArrayList<Piece>();
 
-			if (piece == null) {
+			for (Piece p : pieces) {
+				List<Square> allowable = p.reachable(new MoveContext(board, turn, move));
+				if (allowable.contains(move.getTo())) {
+					candidates.add(p);
+				}
+			}
+			if (candidates.isEmpty()) {
 				throw new IllegalMoveException();
 			}
+			if (candidates.size() > 1) {
+				throw new AmbiguityException();
+			}
+			Piece piece = candidates.get(0);
 
 			List<Rule> rules = new ArrayList<Rule>();
 			rules.addAll(this.rules);
@@ -99,17 +108,19 @@ public class Game {
 					throw new IllegalMoveException(rule.getMessage());
 				}
 			}
-
-			move(piece, move, board);
+			
+			if (move.isCastle()) {
+				//castle(piece, move, board);
+			} else {
+				move(piece, move, board);
+			}
+			
+			
 			board.show();
 
 			turn = turn.equals(player1) ? player2 : player1;
 
-		} catch (UnrecognizedTokenException e) {
-			System.out.println(e.getMessage());
-		} catch (UnrecognizableNotationException e) {
-			System.out.println(e.getMessage());
-		} catch (IllegalMoveException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -158,54 +169,15 @@ public class Game {
 		board.put(new King(square, Color.BLACK), square);
 	}
 
-	private List<Square> getFromSquareCandidates(Move move) {
-
-		List<Square> from = new ArrayList<Square>();
-
-		if (move.getPiece().equals("")) {
-			if (move.isCapture()) {
-
-			} else {
-				if (move.getColor().equals(Color.WHITE)) {
-
-					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() - 1));
-					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() - 2));
-				}
-				if (move.getColor().equals(Color.BLACK)) {
-					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() + 1));
-					from.add(new Square(move.getTo().getFile(), move.getTo().getRank() + 2));
-				}
-			}
-		}
-
-		if (move.getPiece().equals("N")) {
-
-		}
-
-		return from;
-	}
-
-	private Piece getPiece(List<Square> candidates, Board board) {
-
-		Piece piece = null;
-		for (Square square : candidates) {
-			piece = board.get(square);
-			if (piece == null) {
-				continue;
-			}
-		}
-		return piece;
-	}
-
 	private void move(Piece piece, Move move, Board board) {
 
-		board.clear(piece.getSquare());
+		board.clear(piece.getCurrent());
 		board.put(piece, move.getTo());
-		piece.setSquare(move.getTo());
+		piece.setCurrent(move.getTo());
 		moves.push(move);
 
 		if (piece instanceof Pawn) {
-			if (Math.abs(move.getTo().getRank() - piece.getSquare().getRank()) == 2) {
+			if (Math.abs(move.getTo().getRank() - piece.getCurrent().getRank()) == 2) {
 				((Pawn) piece).setMovedTwoSquares(true);
 			}
 		}
@@ -218,5 +190,4 @@ public class Game {
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-
 }
