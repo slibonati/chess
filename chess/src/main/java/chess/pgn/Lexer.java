@@ -11,20 +11,28 @@ import chess.UnrecognizedTokenException;
  */
 public class Lexer {
 
+	private List<TokenLexer> tokenLexers;
+
 	public Lexer() {
 		super();
 
+		tokenLexers = new ArrayList<TokenLexer>();
+		tokenLexers.add(new StringTokenLexer());
+		tokenLexers.add(new SymbolTokenLexer());
+		tokenLexers.add(new NagTokenLexer());
+
 	}
 
-	public List<Token> lex(String input) throws UnrecognizedTokenException {
+	public List<Token> lex(String input) throws UnrecognizedTokenException,
+			InvalidPGNException {
 		if (input.isEmpty()) {
 			throw new IllegalArgumentException("input is empty");
 		}
 
 		List<Token> result = new ArrayList<Token>();
-		int size = result.size();
+		int size = 0;
 		for (char c : input.toCharArray()) {
-
+			size = result.size();
 			if (isPeriod(c)) {
 				result.add(new Token(Type.PERIOD, String.valueOf(c)));
 				continue;
@@ -114,18 +122,29 @@ public class Lexer {
 				result.add(new Token(Type.HYPHEN, String.valueOf(c)));
 				continue;
 			}
-			
+
 			if (isBackslash(c)) {
 				result.add(new Token(Type.BACKSLASH, String.valueOf(c)));
 				continue;
 			}
-
-			if (result.size() == size) {
-				throw new UnrecognizedTokenException(String.valueOf(c) + " unrecognized from " + "'" + input + "'");
+			
+			if (isPrintingCharacter(c)) {
+				result.add(new Token(Type.PRINTING_CHAR, String.valueOf(c)));
+				continue;
+			}
+			
+			if (result.size() == size) { // result did not increase by 1
+				throw new UnrecognizedTokenException(String.valueOf(c)
+						+ " unrecognized from " + "'" + input + "'");
 			}
 		}
 
+		for (TokenLexer tokenLexer : tokenLexers) {
+			result = tokenLexer.lex(result);
+		}
+
 		return result;
+
 	}
 
 	private boolean isPeriod(final char input) {
@@ -199,12 +218,17 @@ public class Lexer {
 	private boolean isHyphen(final char input) {
 		return input == '-';
 	}
+
 	private boolean isBackslash(final char input) {
 		return input == '\\';
 	}
 
 	private boolean isUnderscore(final char input) {
 		return input == '_';
+	}
+
+	private boolean isPrintingCharacter(final char ch) {
+		return ch >= 32 && ch < 127;
 	}
 
 }

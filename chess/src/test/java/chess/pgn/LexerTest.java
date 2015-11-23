@@ -31,7 +31,7 @@ public class LexerTest {
 		for (Token token : tokens) {
 			System.out.println(token.getType());
 		}
-
+		
 	}
 
 }

@@ -26,9 +26,10 @@ public class Lexer {
 		}
 
 		List<Token> result = new ArrayList<Token>();
-		int size = result.size();
+		int size = 0;
 		for (char c : input.toCharArray()) {
-
+			
+			size = result.size();
 			if (isPiece(c)) {
 				result.add(new Token(Type.PIECE, String.valueOf(c)));
 				continue;
@@ -64,7 +65,8 @@ public class Lexer {
 				result.add(new Token(Type.DASH, String.valueOf(c)));
 				continue;
 			}
-			if (result.size() == size) {
+			
+			if (result.size() == size) { // result did not increase by 1
 				throw new UnrecognizedTokenException(String.valueOf(c) + " unrecognized from " + "'" + input +"'");
 			}
 		}
@@ -115,4 +117,5 @@ public class Lexer {
 	private boolean isDash(final char input) {
 		return input == '-';
 	}
+	
 }
