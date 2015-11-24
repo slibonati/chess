@@ -6,8 +6,8 @@ import java.util.List;
 import chess.UnrecognizedTokenException;
 
 /**
- * @see http://www6.chessclub.com/help/PGN-spec A string token is a sequence of
- *      zero or more printing characters ...
+ * @see http://www6.chessclub.com/help/PGN-spec 
+ * A string token is a sequence of zero or more printing characters ...
  *
  */
 public class StringTokenLexer implements TokenLexer {

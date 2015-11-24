@@ -1,5 +1,6 @@
 package chess.pgn;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -36,6 +37,8 @@ public class ParserTest {
 		assertNotNull(pgnGame);
 		assertNotNull(pgnGame.getTagPairSection());
 		assertTrue(pgnGame.getTagPairSection().getTagPairs().size() == 12);
+		
+		assertEquals(Integer.valueOf(56), Integer.valueOf( pgnGame.getMovetextSection().getMoveNumberIndications().size()));
 
 	}
 
