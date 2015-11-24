@@ -8,12 +8,12 @@ public class Parser {
 	/**
 	 * @param tokens
 	 *            produced by Lexer
-	 * @return PgnGame
+	 * @return Pgn
 	 * @throws InvalidTagPairException
 	 */
-	PgnGame parse(List<Token> tokens) throws InvalidTagPairException {
+	Pgn parse(List<Token> tokens) throws InvalidTagPairException {
 
-		PgnGame pgnGame = new PgnGame();
+		Pgn pgn = new Pgn();
 
 		for (int i = 0; i < tokens.size(); i++) {
 
@@ -26,7 +26,7 @@ public class Parser {
 					token = tokens.get(j);
 
 					if (token.getType().equals(Type.RIGHT_BRACKET)) {
-						pgnGame.getTagPairSection().add(getTagPair(tokens.subList(i, j + 1)));
+						pgn.getTagPairSection().add(getTagPair(tokens.subList(i, j + 1)));
 						i = j + 1;
 						break;
 					}
@@ -64,16 +64,22 @@ public class Parser {
 					 */
 					if (moveNumberIndicationToken.getType().equals(Type.SYMBOL)) {
 						moveNumberIndication.getMoves().add(moveNumberIndicationToken);
+						
+						pgn.getMovetextSection().getMoves().add(moveNumberIndicationToken);
 					}
 				}
 
-				pgnGame.getMovetextSection().getMoveNumberIndications().add(moveNumberIndication);
+				pgn.getMovetextSection().getMoveNumberIndications().add(moveNumberIndication);
 				i = j - 1;
 			}
 
 		}
-
-		return pgnGame;
+		
+		Token gameTerminationMarker = pgn.getMovetextSection().getMoves().remove(pgn.getMovetextSection().getMoves().size() - 1);
+		pgn.getMovetextSection().setGameTerminationMarker(gameTerminationMarker);
+		
+	
+		return pgn;
 	}
 
 	private TagPair getTagPair(List<Token> tokens) throws InvalidTagPairException {
@@ -94,7 +100,11 @@ public class Parser {
 				tagPair.setRightBracketToken(stripped.get(3));
 
 			} else {
-				throw new InvalidTagPairException();
+				StringBuilder stringBuilder = new StringBuilder();
+				for (Token token : tokens) {
+					stringBuilder.append(token.getValue());
+				}
+				throw new InvalidTagPairException(stringBuilder.toString());
 			}
 
 		} catch (Exception e) {

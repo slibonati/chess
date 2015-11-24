@@ -1,90 +1,41 @@
 package chess.pgn;
 
+/**
+ * A PGN game is composed of two sections. The first is the tag pair section and
+ * the second is the movetext section.
+ *
+ */
 public class Pgn {
+	/*
+	 * The tag pair section is composed of a series of zero or more tag pairs.
+	 */
+	private TagPairSection tagPairSection;
+	/*
+	 * The movetext section is composed of chess moves, move number indications,
+	 * optional annotations, and a single concluding game termination marker.
+	 */
+	private MovetextSection movetextSection;
+
 	public Pgn() {
+		tagPairSection = new TagPairSection();
+		movetextSection = new MovetextSection();
 
 	}
 
-	private String event;
-	private String site;
-	private String date;
-	private String round;
-	private String white;
-	private String black;
-	private String result;
-	private String comment;
-	private String movetext;
-
-	public String getEvent() {
-		return event;
+	public TagPairSection getTagPairSection() {
+		return tagPairSection;
 	}
 
-	public void setEvent(String event) {
-		this.event = event;
+	public void setTagPairSection(TagPairSection tagPairSection) {
+		this.tagPairSection = tagPairSection;
 	}
 
-	public String getSite() {
-		return site;
+	public MovetextSection getMovetextSection() {
+		return movetextSection;
 	}
 
-	public void setSite(String site) {
-		this.site = site;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getRound() {
-		return round;
-	}
-
-	public void setRound(String round) {
-		this.round = round;
-	}
-
-	public String getWhite() {
-		return white;
-	}
-
-	public void setWhite(String white) {
-		this.white = white;
-	}
-
-	public String getBlack() {
-		return black;
-	}
-
-	public void setBlack(String black) {
-		this.black = black;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public String getMovetext() {
-		return movetext;
-	}
-
-	public void setMovetext(String movetext) {
-		this.movetext = movetext;
+	public void setMovetextSection(MovetextSection movetextSection) {
+		this.movetextSection = movetextSection;
 	}
 
 }

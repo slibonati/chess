@@ -5,24 +5,24 @@ import java.util.List;
 
 public class MovetextSection {
 	
-	private List<String> moves;
+	private List<Token> moves;
 	private List<MoveNumberIndication> moveNumberIndications;
 	/*
 	 * Each movetext section has exactly one game termination marker; the marker
 	 * always occurs as the last element in the movetext.
 	 */
-	private String gameTerminationMarker;
+	private Token gameTerminationMarker;
 
 	public MovetextSection() {
-		moves = new ArrayList<String>();
+		moves = new ArrayList<Token>();
 		moveNumberIndications = new ArrayList<MoveNumberIndication>();
 	}
 
-	public List<String> getMoves() {
+	public List<Token> getMoves() {
 		return moves;
 	}
 
-	public void setMoves(List<String> moves) {
+	public void setMoves(List<Token> moves) {
 		this.moves = moves;
 	}
 
@@ -34,13 +34,16 @@ public class MovetextSection {
 		this.moveNumberIndications = moveNumberIndications;
 	}
 
-	public String getGameTerminationMarker() {
+	public Token getGameTerminationMarker() {
 		return gameTerminationMarker;
 	}
 
-	public void setGameTerminationMarker(String gameTerminationMarker) {
+	public void setGameTerminationMarker(Token gameTerminationMarker) {
 		this.gameTerminationMarker = gameTerminationMarker;
 	}
+
+	
+	
 	
 	
 }

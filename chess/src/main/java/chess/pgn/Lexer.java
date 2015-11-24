@@ -20,6 +20,7 @@ public class Lexer {
 		tokenLexers.add(new StringTokenLexer());
 		tokenLexers.add(new SymbolTokenLexer());
 		tokenLexers.add(new NagTokenLexer());
+		tokenLexers.add(new CommentTokenLexer());
 
 	}
 
@@ -47,6 +48,15 @@ public class Lexer {
 			}
 			if (isRightBracket(c)) {
 				result.add(new Token(Type.RIGHT_BRACKET, String.valueOf(c)));
+				continue;
+			}
+			if (isLeftBrace(c)) {
+				result.add(new Token(Type.LEFT_BRACE, String.valueOf(c)));
+				continue;
+			}
+			
+			if (isRightBrace(c)) {
+				result.add(new Token(Type.RIGHT_BRACE, String.valueOf(c)));
 				continue;
 			}
 			if (isLeftParen(c)) {
@@ -169,6 +179,14 @@ public class Lexer {
 
 	private boolean isRightParen(final char input) {
 		return input == ')';
+	}
+	
+	private boolean isLeftBrace(final char input) {
+		return input == '{';
+	}
+
+	private boolean isRightBrace(final char input) {
+		return input == '}';
 	}
 
 	private boolean isLeftAngle(final char input) {
