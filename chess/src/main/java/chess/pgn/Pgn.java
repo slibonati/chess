@@ -38,4 +38,10 @@ public class Pgn {
 		this.movetextSection = movetextSection;
 	}
 
+	@Override
+	public String toString() {
+		return "Pgn [tagPairSection=" + tagPairSection + ", movetextSection=" + movetextSection + "]";
+	}
+	
+	
 }

@@ -38,14 +38,13 @@ public class ParserTest {
 		assertNotNull(pgn.getTagPairSection());
 
 		assertEquals(Integer.valueOf(12), Integer.valueOf(pgn.getTagPairSection().getTagPairs().size()));
-		assertEquals(Integer.valueOf(56),
-				Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
+		assertEquals(Integer.valueOf(56), Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
 		assertEquals(Integer.valueOf(111), Integer.valueOf(pgn.getMovetextSection().getMoves().size()));
 		assertEquals("1-0", pgn.getMovetextSection().getGameTerminationMarker().getValue());
 	}
 
 	@Test
-
+	@Ignore
 	public void testParseGameOfTheCentury() throws Exception {
 
 		String file = FileUtils.readFileToString(new File("./src/test/resources/game_of_the_century.pgn"));
@@ -53,16 +52,39 @@ public class ParserTest {
 		assertNotNull(file);
 		List<Token> tokens = lexer.lex(file);
 		assertFalse(tokens.isEmpty());
-		
+
 		Pgn pgn = parser.parse(tokens);
 		assertNotNull(pgn);
 		assertNotNull(pgn.getTagPairSection());
 
 		assertEquals(Integer.valueOf(8), Integer.valueOf(pgn.getTagPairSection().getTagPairs().size()));
-		assertEquals(Integer.valueOf(48),
-				Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
+		assertEquals(Integer.valueOf(48), Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
 		assertEquals(Integer.valueOf(82), Integer.valueOf(pgn.getMovetextSection().getMoves().size()));
 		assertEquals("0-1", pgn.getMovetextSection().getGameTerminationMarker().getValue());
+	}
+	
+	@Test
+	public void testKasparovKarpov1990() throws Exception {
+
+		String file = FileUtils.readFileToString(new File("./src/test/resources/kasparov_karpov_1990.pgn"));
+
+		assertNotNull(file);
+		List<Token> tokens = lexer.lex(file);
+
+		for (Token token : tokens) {
+			System.out.println(token.getType());
+		}
+		assertFalse(tokens.isEmpty());
+
+		Pgn pgn = parser.parse(tokens);
+		assertNotNull(pgn);
+		assertNotNull(pgn.getTagPairSection());
+
+		assertEquals(Integer.valueOf(12), Integer.valueOf(pgn.getTagPairSection().getTagPairs().size()));
+		assertEquals(Integer.valueOf(41), Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
+		assertEquals(Integer.valueOf(81), Integer.valueOf(pgn.getMovetextSection().getMoves().size()));
+		assertEquals("1=0", pgn.getMovetextSection().getGameTerminationMarker().getValue());
+
 	}
 
 }

@@ -15,7 +15,7 @@ public class ShortCastleMatcher implements Matcher {
 
 	@Override
 	public Move match(List<Token> input, Color color) throws UnrecognizableNotationException {
-		// 0-0
+		// O-O
 		if (input.size() == 3 && input.get(0).getType() == Type.CASTLE && input.get(1).getType() == Type.DASH
 				&& input.get(2).getType() == Type.CASTLE) {
 

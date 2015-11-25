@@ -107,7 +107,7 @@ public class Lexer {
 	}
 
 	private boolean isCastle(final char input) {
-		return input == '0';
+		return input == 'O';
 	}
 
 	private boolean isPromote(final char input) {

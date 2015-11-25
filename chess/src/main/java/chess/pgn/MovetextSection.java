@@ -42,8 +42,10 @@ public class MovetextSection {
 		this.gameTerminationMarker = gameTerminationMarker;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		return "MovetextSection [moves=" + moves + ", moveNumberIndications=" + moveNumberIndications
+				+ ", gameTerminationMarker=" + gameTerminationMarker + "]";
+	}	
 	
 }

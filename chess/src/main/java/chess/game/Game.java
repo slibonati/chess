@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
+import chess.UnrecognizedTokenException;
 import chess.algebra.Lexer;
 import chess.algebra.Parser;
+import chess.algebra.UnrecognizableNotationException;
 import chess.game.pieces.Bishop;
 import chess.game.pieces.King;
 import chess.game.pieces.Knight;
@@ -19,9 +21,11 @@ import chess.game.pieces.Rook;
 import chess.game.rule.OccupiedSquareRule;
 import chess.game.rule.Rule;
 import chess.game.rule.WrongTurnRule;
+import chess.pgn.Pgn;
+import chess.pgn.Token;
 
 public class Game {
-
+	private Pgn pgn;
 	private Map<Color, String> colorToPrompt = new HashMap<Color, String>();
 
 	private Lexer lexer;
@@ -55,7 +59,23 @@ public class Game {
 		setup(board);
 	}
 
-	public void play() {
+	public Game(Pgn pgn) {
+		this();
+		this.pgn = pgn;
+	}
+
+	public void play() throws Exception {
+		
+		if (pgn != null) {
+			playPgn();
+		} else {
+			playInteractive();
+		}
+	}
+
+	public void playInteractive() {
+
+		board.show();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
@@ -76,6 +96,30 @@ public class Game {
 			turn(input);
 		}
 
+	}
+
+	public void playPgn() throws Exception {
+		
+		List<Token> tokens = pgn.getMovetextSection().getMoves();
+		
+		for (int i = 0; i < tokens.size(); i++) {
+			Token token = pgn.getMovetextSection().getMoves().get(i);
+			Color color = null;
+			
+			if (i % 2 == 0) {
+				color = Color.WHITE;
+			} else {
+				color = Color.BLACK;
+			}
+			
+			Move move = parser.parse(lexer.lex(token.getValue()), color);
+			System.out.println(move);
+			
+		}
+	
+			
+
+		
 	}
 
 	private void turn(final String input) {
@@ -108,19 +152,19 @@ public class Game {
 					throw new IllegalMoveException(rule.getMessage());
 				}
 			}
-			
+
 			if (move.isCastle()) {
-				//castle(piece, move, board);
+				// castle(piece, move, board);
 			} else {
 				move(piece, move, board);
 			}
-			
-			
+
 			board.show();
 
 			turn = turn.equals(player1) ? player2 : player1;
 
 		} catch (Exception e) {
+			
 			System.out.println(e.getMessage());
 		}
 

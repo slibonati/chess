@@ -25,4 +25,10 @@ public class TagPairSection {
 		this.tagPairs = tagPairs;
 	}
 
+	@Override
+	public String toString() {
+		return "TagPairSection [tagPairs=" + tagPairs + "]";
+	}
+	
+	
 }
