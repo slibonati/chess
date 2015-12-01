@@ -6,9 +6,10 @@ public class Move {
 	private String piece;
 	private String promote;
 	private Square to;
-	boolean capture;
-	boolean castle;
-
+	private boolean capture;
+	private boolean castle;
+	private Square disambiguity;
+	
 	public Move() {
 		super();
 	}
@@ -40,6 +41,14 @@ public class Move {
 		this.piece = piece;
 		this.promote = promote;
 		this.to = to;
+	}
+
+	public Move(Color color, String piece, Square to, Square disambiguity) {
+		super();
+		this.color = color;
+		this.piece = piece;
+		this.to = to;
+		this.disambiguity = disambiguity;
 	}
 
 	public Color getColor() {
@@ -91,12 +100,25 @@ public class Move {
 	public void setCastle(boolean castle) {
 		this.castle = castle;
 	}
+	
+	
+	public Square getDisambiguity() {
+		return disambiguity;
+	}
 
+	public void setDisambiguity(Square disambiguity) {
+		this.disambiguity = disambiguity;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (capture ? 1231 : 1237);
+		result = prime * result + (castle ? 1231 : 1237);
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((disambiguity == null) ? 0 : disambiguity.hashCode());
 		result = prime * result + ((piece == null) ? 0 : piece.hashCode());
 		result = prime * result + ((promote == null) ? 0 : promote.hashCode());
 		result = prime * result + ((to == null) ? 0 : to.hashCode());
@@ -112,7 +134,16 @@ public class Move {
 		if (getClass() != obj.getClass())
 			return false;
 		Move other = (Move) obj;
+		if (capture != other.capture)
+			return false;
+		if (castle != other.castle)
+			return false;
 		if (color != other.color)
+			return false;
+		if (disambiguity == null) {
+			if (other.disambiguity != null)
+				return false;
+		} else if (!disambiguity.equals(other.disambiguity))
 			return false;
 		if (piece == null) {
 			if (other.piece != null)

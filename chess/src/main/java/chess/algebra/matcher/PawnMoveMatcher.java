@@ -14,6 +14,7 @@ public class PawnMoveMatcher implements Matcher {
 	private Matcher next;
 	
 	@Override
+	//TODO move this into PieceMoveMatcher and delete ? 
 	public Move match(List<Token> input,  Color color) throws UnrecognizableNotationException {
 		// e4
 		if (input.size() == 2 && 
