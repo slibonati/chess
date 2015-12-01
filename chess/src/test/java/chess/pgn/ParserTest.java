@@ -24,7 +24,6 @@ public class ParserTest {
 	}
 
 	@Test
-	@Ignore
 	public void testParseFischerStein1967() throws Exception {
 
 		String file = FileUtils.readFileToString(new File("./src/test/resources/fischer_stein_1967.pgn"));
@@ -44,7 +43,6 @@ public class ParserTest {
 	}
 
 	@Test
-	@Ignore
 	public void testParseGameOfTheCentury() throws Exception {
 
 		String file = FileUtils.readFileToString(new File("./src/test/resources/game_of_the_century.pgn"));
@@ -71,9 +69,6 @@ public class ParserTest {
 		assertNotNull(file);
 		List<Token> tokens = lexer.lex(file);
 
-		for (Token token : tokens) {
-			System.out.println(token.getType());
-		}
 		assertFalse(tokens.isEmpty());
 
 		Pgn pgn = parser.parse(tokens);
@@ -83,7 +78,7 @@ public class ParserTest {
 		assertEquals(Integer.valueOf(12), Integer.valueOf(pgn.getTagPairSection().getTagPairs().size()));
 		assertEquals(Integer.valueOf(41), Integer.valueOf(pgn.getMovetextSection().getMoveNumberIndications().size()));
 		assertEquals(Integer.valueOf(81), Integer.valueOf(pgn.getMovetextSection().getMoves().size()));
-		assertEquals("1=0", pgn.getMovetextSection().getGameTerminationMarker().getValue());
+		assertEquals("1-0", pgn.getMovetextSection().getGameTerminationMarker().getValue());
 
 	}
 
