@@ -1,5 +1,7 @@
 package chess.algebra;
 
+import java.util.List;
+
 public class UnrecognizableNotationException extends Exception {
 
 	public UnrecognizableNotationException() {
@@ -10,7 +12,7 @@ public class UnrecognizableNotationException extends Exception {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public UnrecognizableNotationException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub

@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 
-import chess.UnrecognizedTokenException;
 import chess.algebra.Lexer;
 import chess.algebra.Parser;
-import chess.algebra.UnrecognizableNotationException;
 import chess.game.pieces.Bishop;
 import chess.game.pieces.King;
 import chess.game.pieces.Knight;
@@ -25,6 +23,7 @@ import chess.pgn.Pgn;
 import chess.pgn.Token;
 
 public class Game {
+
 	private Pgn pgn;
 	private Map<Color, String> colorToPrompt = new HashMap<Color, String>();
 
@@ -65,7 +64,7 @@ public class Game {
 	}
 
 	public void play() throws Exception {
-		
+
 		if (pgn != null) {
 			playPgn();
 		} else {
@@ -99,27 +98,24 @@ public class Game {
 	}
 
 	public void playPgn() throws Exception {
-		
+
 		List<Token> tokens = pgn.getMovetextSection().getMoves();
-		
+
 		for (int i = 0; i < tokens.size(); i++) {
 			Token token = pgn.getMovetextSection().getMoves().get(i);
 			Color color = null;
-			
+
 			if (i % 2 == 0) {
 				color = Color.WHITE;
 			} else {
 				color = Color.BLACK;
 			}
-			
+
 			Move move = parser.parse(lexer.lex(token.getValue()), color);
 			System.out.println(move);
-			
-		}
-	
-			
 
-		
+		}
+
 	}
 
 	private void turn(final String input) {
@@ -164,7 +160,7 @@ public class Game {
 			turn = turn.equals(player1) ? player2 : player1;
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
 

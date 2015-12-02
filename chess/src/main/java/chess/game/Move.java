@@ -8,6 +8,8 @@ public class Move {
 	private Square to;
 	private boolean capture;
 	private boolean castle;
+	private boolean check;
+	private boolean checkmate;
 	private Square disambiguity;
 	
 	public Move() {
@@ -26,7 +28,7 @@ public class Move {
 		this.piece = piece;
 		this.to = to;
 	}
-	
+
 	public Move(Color color, String piece, Square to, boolean castle) {
 		super();
 		this.color = color;
@@ -111,12 +113,32 @@ public class Move {
 	}
 
 	
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+	
+	
+
+	public boolean isCheckmate() {
+		return checkmate;
+	}
+
+	public void setCheckmate(boolean checkmate) {
+		this.checkmate = checkmate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (capture ? 1231 : 1237);
 		result = prime * result + (castle ? 1231 : 1237);
+		result = prime * result + (check ? 1231 : 1237);
+		result = prime * result + (checkmate ? 1231 : 1237);
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
 		result = prime * result + ((disambiguity == null) ? 0 : disambiguity.hashCode());
 		result = prime * result + ((piece == null) ? 0 : piece.hashCode());
@@ -137,6 +159,10 @@ public class Move {
 		if (capture != other.capture)
 			return false;
 		if (castle != other.castle)
+			return false;
+		if (check != other.check)
+			return false;
+		if (checkmate != other.checkmate)
 			return false;
 		if (color != other.color)
 			return false;
@@ -165,7 +191,12 @@ public class Move {
 
 	@Override
 	public String toString() {
-		return "Move [color=" + color + ", piece=" + piece + ", promote=" + promote + ", to=" + to + "]";
+		return "Move [color=" + color + ", piece=" + piece + ", promote=" + promote + ", to=" + to + ", capture="
+				+ capture + ", castle=" + castle + ", check=" + check + ", checkmate=" + checkmate + ", disambiguity="
+				+ disambiguity + "]";
 	}
+
+
+	
 
 }

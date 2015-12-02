@@ -17,10 +17,11 @@ public class Lexer {
 		super();
 
 		tokenLexers = new ArrayList<TokenLexer>();
+		tokenLexers.add(new CommentTokenLexer());
 		tokenLexers.add(new StringTokenLexer());
 		tokenLexers.add(new SymbolTokenLexer());
 		tokenLexers.add(new NagTokenLexer());
-		tokenLexers.add(new CommentTokenLexer());
+		
 
 	}
 
@@ -32,6 +33,7 @@ public class Lexer {
 
 		List<Token> result = new ArrayList<Token>();
 		int size = 0;
+		int pos = 0;
 		for (char c : input.toCharArray()) {
 			size = result.size();
 			if (isPeriod(c)) {
@@ -132,11 +134,6 @@ public class Lexer {
 				result.add(new Token(Type.HYPHEN, String.valueOf(c)));
 				continue;
 			}
-
-			if (isBackslash(c)) {
-				result.add(new Token(Type.BACKSLASH, String.valueOf(c)));
-				continue;
-			}
 			
 			if (isPrintingCharacter(c)) {
 				result.add(new Token(Type.PRINTING_CHAR, String.valueOf(c)));
@@ -144,9 +141,9 @@ public class Lexer {
 			}
 			
 			if (result.size() == size) { // result did not increase by 1
-				throw new UnrecognizedTokenException(String.valueOf(c)
-						+ " unrecognized from " + "'" + input + "'");
+				throw new UnrecognizedTokenException(" unrecognized token: " + String.valueOf(c) + " at position: " + pos);
 			}
+			pos++;
 		}
 
 		for (TokenLexer tokenLexer : tokenLexers) {
@@ -206,7 +203,7 @@ public class Lexer {
 	}
 
 	private boolean isWhiteSpace(final char input) {
-		return input == ' ' || input == '\n' || input == '\t';
+		return input == ' ' || input == '\n' || input == '\t' || input == '\r';
 	}
 
 	private boolean isDigit(final char input) {
@@ -235,10 +232,6 @@ public class Lexer {
 
 	private boolean isHyphen(final char input) {
 		return input == '-';
-	}
-
-	private boolean isBackslash(final char input) {
-		return input == '\\';
 	}
 
 	private boolean isUnderscore(final char input) {

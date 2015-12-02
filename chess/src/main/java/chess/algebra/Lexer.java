@@ -43,7 +43,7 @@ public class Lexer {
 				continue;
 			}
 			if (isTakes(c)) {
-				result.add(new Token(Type.TAKES, String.valueOf(c)));
+				result.add(new Token(Type.CAPTURE, String.valueOf(c)));
 			}
 			if (isCheck(c)) {
 				result.add(new Token(Type.CHECK, String.valueOf(c)));
